@@ -6,6 +6,7 @@ import SimpleLightbox from 'simplelightbox';
 // Додатковий імпорт стилів
 
 const boxForImg = document.querySelector('.gallery');
+boxForImg.style.listStyle = 'none';
 const markup = galleryItems
   .map(
     item =>
