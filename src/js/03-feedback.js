@@ -2,6 +2,15 @@ import throttle from 'lodash.throttle';
 
 const formInput = document.querySelector('.feedback-form');
 
+const clientData = {};
+const inputTextTrottle = throttle(inputText, 500);
+formInput.addEventListener('input', inputTextTrottle);
+
+function inputText(event) {
+  clientData[event.target.name] = event.target.value;
+  localStorage.setItem('feedback-form-state', JSON.stringify(clientData));
+}
+
 function checkLocalStorage() {
   const userdata = JSON.parse(localStorage.getItem('feedback-form-state'));
   if (userdata !== null) {
@@ -11,15 +20,6 @@ function checkLocalStorage() {
   }
 }
 checkLocalStorage();
-
-const clientData = {};
-const inputTextTrottle = throttle(inputText, 500);
-formInput.addEventListener('input', inputTextTrottle);
-
-function inputText(event) {
-  clientData[event.target.name] = event.target.value;
-  localStorage.setItem('feedback-form-state', JSON.stringify(clientData));
-}
 
 formInput.addEventListener('submit', clickOnSubmit);
 function clickOnSubmit(evt) {
